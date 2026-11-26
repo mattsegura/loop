@@ -1,7 +1,7 @@
 {
   "name": "loop-local-hub",
   "version": "1.0.0",
-  "description": "Open-source MCP gateway, encrypted credential vault, and shared hub for AI agents.",
+  "description": "Open-source hub for your AI agents — shared connections, Library, encrypted Vault, approvals, and settings.",
   "private": true,
   "license": "AGPL-3.0-only",
   "keywords": [

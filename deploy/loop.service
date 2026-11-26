@@ -1,5 +1,5 @@
 [Unit]
-Description=Loop hosted MCP gateway (useloop.sh)
+Description=Loop — shared hub for AI agents (useloop.sh)
 After=network-online.target
 Wants=network-online.target
 # Adjust RequiresMountsFor and ReadWritePaths if your data lives on a mounted volume.

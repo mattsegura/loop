@@ -1,5 +1,5 @@
 import { organizeApprovalCard, renderOrganizeApproval } from './organize-approval.js';
-// Loop MCP Gateway — dashboard (Home, Library, Vault, Settings; connections and agents open as popups).
+// Loop — dashboard (Home, Library, Vault, Settings).
 
 import { homeMatchScore, rankedHomeMatches, resetHomeSearch, findCapabilityPrompt } from './home-search.js';
 import { renderSkillMarkdown } from './skill-markdown.js';

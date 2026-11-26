@@ -1,8 +1,8 @@
-# Loop MCP Gateway
+# Loop
 
-Loop keeps your Connections, Skills, Memory, accounts, and secrets in one place and lets **any agent** use them: Claude Code, Claude Desktop, Codex, Cursor, Antigravity, Muse, Grok Bot, OpenBot bots, and more. Import what your agents already have, give each agent its own key and permissions, and see what each one did.
+Loop is one shared hub for all your AI agents — Claude Code, Claude Desktop, Codex, Cursor, Antigravity, Muse, Grok Bot, OpenBot, and more. Keep your **Connections**, **Skills**, **Library** (memories, saved notes, files, tasks, and schedules), **Vault** (encrypted secrets and approval rules), and **Agent permissions** in one place so every agent picks up where the last one left off.
 
-Loop runs locally on loopback (`127.0.0.1`) or as a hosted multi-user deployment, aggregates upstream **tools**, **resources**, and **prompts** from Streamable HTTP, SSE, and local `stdio` MCP servers, encrypts credentials in a Vault, and manages everything through a web dashboard (**Home**, **Library**, **Vault**, and **Settings**).
+Loop runs locally on loopback (`127.0.0.1`) or as a hosted multi-user workspace (`useloop.sh`), connects upstream tools, resources, and prompts over Streamable HTTP, SSE, OpenAPI/GraphQL, and local `stdio` MCP servers, encrypts credentials in a Vault, and manages everything through one web dashboard (**Home**, **Library**, **Vault**, and **Settings**).
 
 ![Loop Home dashboard](docs/screenshots/home.png)
 
