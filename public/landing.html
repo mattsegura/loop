@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FDFCFB">
+<script src="/theme-boot.js"></script>
+<title>Loop · Pick up where your last agent left off.</title>
+<meta name="description" content="Bring your tools, saved instructions, and project decisions from one AI agent to the next with Loop.">
+<meta property="og:title" content="Loop · Pick up where your last agent left off.">
+<meta property="og:description" content="Bring your tools, saved instructions, and project decisions from one AI agent to the next with Loop.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://useloop.sh/og-preview.png?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Loop · Pick up where your last agent left off.">
+<meta name="twitter:description" content="Bring your tools, saved instructions, and project decisions from one AI agent to the next with Loop.">
+<meta name="twitter:image" content="https://useloop.sh/og-preview.png?v=2">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="64x64">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="stylesheet" href="/landing.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<nav class="nav wrap" aria-label="Main">
+  <a class="brand" href="/" aria-label="Loop home"><img src="/logo.svg" width="78" height="34" alt="Loop"></a>
+  <div class="navlinks"><a href="#handoff">How it works</a><a href="#install">Agent setup</a></div>
+  <div class="nav-actions"><a href="/?loop-auth=sign-in">Sign in</a><a class="button solid small" href="/?loop-auth=sign-up">Get Loop <span aria-hidden="true">↗</span></a></div>
+</nav>
+<main id="main">
+<header class="hero wrap">
+  <div class="intro">
+    <p class="eyebrow"><span class="signal" aria-hidden="true"></span> A workspace for your AI agents</p>
+    <h1>Pick up where<br>your last agent<br><em>left off.</em></h1>
+    <p class="lead">Bring your tools, saved instructions, and project decisions from Claude to Codex, Cursor, or wherever you work next.</p>
+    <div class="actions"><a class="button solid" href="#install">Connect your agent <span aria-hidden="true">↗</span></a><a class="textlink" href="#handoff">See a handoff <span aria-hidden="true">↓</span></a></div>
+  </div>
+  <figure class="art">
+    <img class="cord" src="/landing-loop.webp" fetchpriority="high" alt="" width="900" height="900">
+    <figcaption><span class="art-agent"><img src="/agent-logos/claude.svg" alt="">Claude Code</span><span class="bridge" aria-hidden="true"></span><span class="art-agent"><img src="/agent-logos/codex.svg" alt="">Codex</span></figcaption>
+  </figure>
+</header>
+<div class="compat wrap"><span>Works with</span><div><img src="/agent-logos/claude.svg" alt="">Claude Code</div><div><img src="/agent-logos/codex.svg" alt="">Codex</div><div><img src="/agent-logos/cursor.svg" alt="">Cursor</div><div><img src="/agent-logos/gemini.svg" alt="">Gemini CLI</div><span>and other MCP clients</span></div>
+<section id="handoff" class="example wrap">
+  <div class="section-intro"><p class="eyebrow">How it works</p><h2>One project.<br><em>Two agents.</em></h2><p>Save a decision in Claude. Open Codex tomorrow and ask it to continue. Here’s what that handoff can look like.</p></div>
+  <div class="demo">
+    <div class="demo-head"><span>Example handoff</span><strong>Launch brief</strong></div>
+    <div class="tabs demo-tabs" role="tablist" aria-label="Choose a handoff example">
+      <button id="tab-memory" role="tab" data-tab="memory" aria-controls="memory" aria-selected="true">Memory</button>
+      <button id="tab-skill" role="tab" data-tab="skill" aria-controls="skill" aria-selected="false" tabindex="-1">Skill</button>
+      <button id="tab-tool" role="tab" data-tab="tool" aria-controls="tool" aria-selected="false" tabindex="-1">Connection</button>
+    </div>
+    <div class="exchange" id="memory" data-panel="memory" role="tabpanel" aria-labelledby="tab-memory">
+      <div><img src="/agent-logos/claude.svg" alt=""><div><b>Claude Code</b><small>Saved decision</small><p>“Remember that the launch brief is for existing customers.”</p></div></div>
+      <div><img src="/agent-logos/codex.svg" alt=""><div><b>Codex</b><small>Next session</small><p>“I found the audience decision. I’ll open with what’s changing for current customers.”</p></div></div>
+    </div>
+    <div class="exchange" id="skill" data-panel="skill" role="tabpanel" aria-labelledby="tab-skill" hidden>
+      <div><img src="/agent-logos/claude.svg" alt=""><div><b>Claude Code</b><small>Saved instructions</small><p>“Save our brief format: audience, key change, and one customer example.”</p></div></div>
+      <div><img src="/agent-logos/codex.svg" alt=""><div><b>Codex</b><small>Next draft</small><p>“I found the brief-writing skill. I’ll use those three sections for this draft.”</p></div></div>
+    </div>
+    <div class="exchange" id="tool" data-panel="tool" role="tabpanel" aria-labelledby="tab-tool" hidden>
+      <div><img src="/agent-logos/claude.svg" alt=""><div><b>Claude Code</b><small>Connected tool</small><p>“Add our research server to Loop so we can reuse it for the brief.”</p></div></div>
+      <div><img src="/agent-logos/codex.svg" alt=""><div><b>Codex</b><small>Next research pass</small><p>“The research connection is available to me. I’ll look up the interview notes.”</p></div></div>
+    </div>
+  </div>
+</section>
+<section id="install" class="setup">
+  <div class="wrap setup-grid">
+    <div class="section-intro"><p class="eyebrow">Agent setup</p><h2>Start with<br><em>your agent.</em></h2><p>Choose the agent you already use and connect it to Loop. You can bring in another whenever you need it.</p><a class="textlink" href="/?loop-auth=sign-up">Set up in your browser <span aria-hidden="true">↗</span></a></div>
+    <div class="installer">    <div class="tabs" role="tablist" aria-label="Agent setup instructions">
+      <button class="tab" role="tab" aria-selected="true" data-tab="claude" id="setup-tab-claude" aria-controls="setup-claude"><span class="mk claude">✳</span>Claude Code</button>
+      <button class="tab" role="tab" aria-selected="false" tabindex="-1" data-tab="codex" id="setup-tab-codex" aria-controls="setup-codex"><span class="mk codex">◎</span>Codex</button>
+      <button class="tab" role="tab" aria-selected="false" tabindex="-1" data-tab="cursor" id="setup-tab-cursor" aria-controls="setup-cursor"><span class="mk cursor">▲</span>Cursor</button>
+      <button class="tab" role="tab" aria-selected="false" tabindex="-1" data-tab="other" id="setup-tab-other" aria-controls="setup-other"><span class="mk other">{ }</span>Other</button>
+      <button class="tab" role="tab" aria-selected="false" tabindex="-1" data-tab="local" id="setup-tab-local" aria-controls="setup-local"><span class="mk local">⌂</span>Local (Free)</button>
+    </div>
+
+    <div class="panel steps" data-panel="claude" role="tabpanel" id="setup-claude" aria-labelledby="setup-tab-claude">
+      <div class="step"><span class="n">1</span><div style="flex:1;min-width:0"><div class="st">Paste this in your terminal</div>
+        <div class="code"><pre>claude mcp add --transport http --scope user loop https://useloop.sh/mcp</pre><button class="copy" type="button">Copy</button></div></div></div>
+      <div class="step"><span class="n">2</span><div><div class="st">Type <kbd>/mcp</kbd>, pick loop, choose Authenticate</div><div class="sd">Sign in with Google or email. That creates your Loop account. Loop opens the sign-in flow in your browser.</div></div></div>
+      <div class="step"><span class="n ok">✓</span><div><div class="st">Done. Claude Code is in your Loop.</div><div class="sd">Ask it to “add my remote MCP servers to Loop”, or paste your config with <strong>Import JSON</strong> in Loop.</div></div></div>
+    </div>
+
+    <div class="panel steps" data-panel="codex" role="tabpanel" id="setup-codex" aria-labelledby="setup-tab-codex" hidden>
+      <div class="step"><span class="n">1</span><div style="flex:1;min-width:0"><div class="st">Add Loop</div>
+        <div class="code"><pre>codex mcp add loop --url https://useloop.sh/mcp</pre><button class="copy" type="button">Copy</button></div></div></div>
+      <div class="step"><span class="n">2</span><div style="flex:1;min-width:0"><div class="st">Sign in</div>
+        <div class="code"><pre>codex mcp login loop</pre><button class="copy" type="button">Copy</button></div>
+        <div class="sd" style="margin-top:8px">Your browser opens. Sign in with Google or email to create your Loop account.</div></div></div>
+      <div class="step"><span class="n ok">✓</span><div><div class="st">Done. Codex is in your Loop.</div></div></div>
+    </div>
+
+    <div class="panel steps" data-panel="cursor" role="tabpanel" id="setup-cursor" aria-labelledby="setup-tab-cursor" hidden>
+      <div class="step"><span class="n">1</span><div style="flex:1;min-width:0"><div class="st">Add this to <code class="i">~/.cursor/mcp.json</code></div>
+        <div class="code"><pre>{ "mcpServers": { "loop": { "url": "https://useloop.sh/mcp" } } }</pre><button class="copy" type="button">Copy</button></div></div></div>
+      <div class="step"><span class="n">2</span><div><div class="st">Open Cursor Settings → MCP, click Connect next to loop</div><div class="sd">Sign in with Google or email. That creates your Loop account.</div></div></div>
+      <div class="step"><span class="n ok">✓</span><div><div class="st">Done. Cursor is in your Loop.</div></div></div>
+    </div>
+
+    <div class="panel steps" data-panel="other" role="tabpanel" id="setup-other" aria-labelledby="setup-tab-other" hidden>
+      <div class="step"><span class="n">1</span><div style="flex:1;min-width:0"><div class="st">Add a remote MCP server with this URL</div>
+        <div class="code"><pre>https://useloop.sh/mcp</pre><button class="copy" type="button">Copy</button></div>
+        <div class="sd" style="margin-top:8px">Any app that supports remote MCP with OAuth will ask you to sign in. For apps that only take a key, <a href="/?loop-auth=sign-up">sign up on the web</a> and use Connect to get one.</div></div></div>
+    </div>
+
+    <div class="panel steps" data-panel="local" role="tabpanel" id="setup-local" aria-labelledby="setup-tab-local" hidden>
+      <div class="step"><span class="n">1</span><div style="flex:1;min-width:0"><div class="st">Install free Local Loop (macOS / Linux)</div>
+        <div class="code"><pre>curl -fsSL https://useloop.sh/install.sh | sh</pre><button class="copy" type="button">Copy</button></div></div></div>
+      <div class="step"><span class="n">2</span><div style="flex:1;min-width:0"><div class="st">Start Loop locally</div>
+        <div class="code"><pre>loop start</pre><button class="copy" type="button">Copy</button></div>
+        <div class="sd" style="margin-top:8px">Runs 100% locally on <code class="i">127.0.0.1:8799</code> under AGPL-3.0 with unlimited local agents and connections. Pair with Loop Connect anytime to share across devices.</div></div></div>
+    </div>
+
+    </div>
+  </div>
+</section>
+</main>
+<footer class="wrap"><a class="brand" href="/" aria-label="Loop home"><img src="/logo.svg" width="66" height="29" alt="Loop"></a><a href="https://github.com/mattsegura/loop">Open source · AGPL-3.0</a><div><a href="https://github.com/mattsegura/loop">GitHub</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/?loop-auth=sign-in">Sign in</a></div></footer>
+<script src="/landing.js" defer></script>
+</body>
+</html>

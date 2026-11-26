@@ -1,0 +1,4 @@
+{
+  "about": "High-severity findings from the 2026-11-20 audit that are still open. `npm run test:audit` passes while each of these still reproduces. After fixing one, delete its line; from then on the suite fails if it comes back. Do not add a line to turn a failing run green.",
+  "open": {}
+}

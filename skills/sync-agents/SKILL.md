@@ -1,0 +1,15 @@
+---
+name: "sync-agents"
+description: "Use when the user wants to bring existing connections and skills from installed agents into Loop."
+---
+
+# Sync selected Connections and Skills
+
+For enabled Connections, cleanup checks for a credential-matching Loop copy. Disabled entries without credentials also have a same-name fallback. For user Skills, the content hash must match the copy in Loop. These checks establish eligibility, not permission to remove an item.
+
+1. **Discover without writes.** Call `loop__run` with `tool: "loop_host__discover"` and the requested `scope` (`connections`, `skills`, or `all`). Narrow with `source` if requested. Render the returned `visual` as Markdown. For a preview-only request, stop here.
+2. **Agree on what to copy.** List the source, item, and exact discovery key of each proposed Connection and Skill. Flag disabled, host-specific, and already-imported entries. Leave native built-ins, system Skills, and Loop itself alone. Confirm the named items, not a generic request to organize everything.
+3. **Import the selection only.** Use separate `loop_host__import` calls for Connections and Skills so selections are independent. Supply `scope`, `source`, and the corresponding exact `keys` for each source and category. For example, `{"scope":"connections","source":"claude-code","keys":["claude-code::user::calendar"]}`. Use keys from the actual discovery result, not display names. Skip a call if its selection is empty. Import copies into Loop; it does not edit the originals or authorize cleanup.
+4. **Preview removal separately.** Use `loop_host__cleanup` with `dryRun: true`. Cleanup uses `sources` (plural, exact agent IDs) and removes eligible duplicates in scope. If the user only approved a narrower subset of items that `loop_host__cleanup` cannot express cleanly, stop before submitting cleanup and report what remains. Never omit `keys` on import or silently widen cleanup scope beyond the user's confirmed selection.
+5. **Confirm the preview.** Show the exact entries/files proposed for removal and what will remain. Keep the default readiness and project settings unless the user explicitly approves a change and sees a new preview. Ask whether to remove *these entries*. Run the same cleanup arguments with `dryRun: false` only after confirmation. If owner approval is requested, show the approval URL and retry with the identical arguments and returned `approvalId`. If targets or arguments change, preview again; do not reuse or widen the approval.
+6. **Report what changed.** Render the returned `visual` as Markdown. Show actual counts, Secrets moved to Vault, retained items and reasons, and backup paths. For each Connection use Local or Cloud and the returned status: Successful, Imported (Off), Needs sign-in, Token rejected, Failed, or Skipped. Use the returned `detail` for sign-in or repair guidance. Remind the user to reload only affected agents. Unselected, unmatched, modified, or not-ready entries can remain; per-project cleanup is off by default.

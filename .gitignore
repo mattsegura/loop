@@ -1,0 +1,16 @@
+node_modules
+.DS_Store
+*.sqlite*
+*.db*
+*.key
+.env*
+!.env.example
+.claude/
+clients/
+service.lock
+*.log
+.sms-sim/
+
+eval/real/
+eval/runtime/
+eval/models/

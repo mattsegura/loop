@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src 'self'; frame-src 'self'; font-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FDFCFB">
+<script src="/theme-boot.js"></script>
+<title>MCP Inspector · Loop</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="64x64">
+<link rel="stylesheet" href="/tokens.css">
+<link rel="stylesheet" href="/inspector.css">
+<script type="module" src="/inspector.js"></script>
+</head>
+<body>
+<header class="insp-bar">
+  <div class="insp-bar-left">
+    <a class="insp-back" href="/">&larr; Loop</a>
+    <span class="insp-title">MCP Inspector</span>
+    <code class="insp-endpoint" id="insp-endpoint">/mcp</code>
+  </div>
+  <div class="insp-bar-controls">
+    <label class="insp-ctl">
+      <span>Simulate as</span>
+      <select id="insp-agent" aria-label="Simulate as agent">
+        <option value="">Owner (full access)</option>
+      </select>
+    </label>
+    <label class="insp-ctl">
+      <span>Profile</span>
+      <select id="insp-profile" aria-label="Workspace profile">
+        <option value="all">All</option>
+      </select>
+    </label>
+    <label class="insp-check" title="Advertise io.modelcontextprotocol/ui extension during initialize">
+      <input type="checkbox" id="insp-ui-cap" checked>
+      <span>MCP Apps UI</span>
+    </label>
+    <label class="insp-check" title="Simulate interactive MCP elicitation/create approval dialogs">
+      <input type="checkbox" id="insp-elicit-cap">
+      <span>Elicit</span>
+    </label>
+    <button type="button" class="insp-btn is-primary" id="insp-connect-btn">Initialize</button>
+    <button type="button" class="insp-btn" id="insp-theme-btn" aria-label="Toggle widget theme">Dark widget</button>
+  </div>
+</header>
+
+<div id="insp-banner" class="insp-banner" hidden></div>
+
+<main class="insp-layout" id="insp-main">
+  <aside class="insp-sidebar" aria-label="MCP Explorer">
+    <div class="insp-tabs" role="tablist">
+      <button type="button" class="insp-tab is-active" data-side-tab="tools" role="tab" aria-selected="true">Tools</button>
+      <button type="button" class="insp-tab" data-side-tab="widgets" role="tab" aria-selected="false">Widgets</button>
+      <button type="button" class="insp-tab" data-side-tab="resources" role="tab" aria-selected="false">Resources</button>
+      <button type="button" class="insp-tab" data-side-tab="prompts" role="tab" aria-selected="false">Prompts</button>
+      <button type="button" class="insp-tab" data-side-tab="traffic" id="insp-tab-traffic" role="tab" aria-selected="false">Traffic</button>
+      <button type="button" class="insp-tab" data-side-tab="checks" role="tab" aria-selected="false">Checks</button>
+    </div>
+    <div class="insp-side-tools" id="insp-side-tools">
+      <input type="search" id="insp-filter" class="insp-input" placeholder="Filter list..." aria-label="Filter items">
+      <button type="button" class="insp-btn is-sm" id="insp-refresh-btn">Refresh</button>
+    </div>
+    <div class="insp-list" id="insp-side-list"></div>
+  </aside>
+
+  <section class="insp-pane insp-request-pane" aria-label="Request Builder">
+    <div class="insp-pane-head">
+      <div class="insp-pane-head-text">
+        <h1 class="insp-pane-title" id="insp-req-title">Select a tool, widget, resource, or prompt</h1>
+        <p class="insp-pane-sub" id="insp-req-sub">Run live JSON-RPC calls against your Loop gateway and inspect inline MCP App widgets.</p>
+      </div>
+      <div class="insp-pane-actions">
+        <label class="insp-check" title="Stream partial tool arguments via ui/notifications/tool-input-partial before final result">
+          <input type="checkbox" id="insp-stream-args">
+          <span>Stream</span>
+        </label>
+        <button type="button" class="insp-btn is-sm" id="insp-raw-toggle">Raw RPC</button>
+        <button type="button" class="insp-btn is-primary" id="insp-run-btn" disabled>Run</button>
+      </div>
+    </div>
+
+    <div class="insp-presets" id="insp-presets" hidden></div>
+
+    <div class="insp-pane-body" id="insp-req-body">
+      <div class="insp-editor-block">
+        <div class="insp-editor-head">
+          <span id="insp-editor-label">Arguments JSON</span>
+          <div class="insp-editor-tools">
+            <button type="button" class="insp-link-btn" id="insp-copy-rpc">Copy RPC</button>
+            <button type="button" class="insp-link-btn" id="insp-copy-curl">Copy cURL</button>
+            <button type="button" class="insp-link-btn" id="insp-format-btn">Format JSON</button>
+          </div>
+        </div>
+        <textarea id="insp-json-input" class="insp-textarea" spellcheck="false" aria-label="JSON payload" title="Press Cmd+Enter or Ctrl+Enter to run">{}</textarea>
+      </div>
+      <details id="insp-schema-wrap" class="insp-schema-wrap" hidden>
+        <summary id="insp-schema-summary">Parameters</summary>
+        <div id="insp-schema-form" class="insp-form"></div>
+      </details>
+      <div id="insp-req-meta" class="insp-meta-box" hidden></div>
+    </div>
+  </section>
+
+  <section class="insp-pane insp-output-pane" aria-label="Response and Widget Preview">
+    <div class="insp-pane-head">
+      <div class="insp-tabs" role="tablist">
+        <button type="button" class="insp-tab is-active" data-out-tab="widget" role="tab" aria-selected="true">Widget Preview</button>
+        <button type="button" class="insp-tab" data-out-tab="response" role="tab" aria-selected="false">Response</button>
+        <button type="button" class="insp-tab" data-out-tab="protocol" role="tab" aria-selected="false">Wire Log</button>
+      </div>
+      <div class="insp-status-group">
+        <span class="insp-pill" id="insp-status-pill">Idle</span>
+        <span class="insp-muted" id="insp-latency"></span>
+      </div>
+    </div>
+
+    <div class="insp-pane-body insp-out-body">
+      <div id="insp-out-widget" class="insp-out-panel">
+        <div class="insp-widget-bar" id="insp-widget-bar" hidden>
+          <span class="insp-muted">Widget URI: <code id="insp-widget-uri"></code></span>
+          <div class="insp-bar-controls">
+            <div class="insp-seg" role="group" aria-label="Widget preview width">
+              <button type="button" class="insp-seg-btn is-active" data-widget-width="full">Full</button>
+              <button type="button" class="insp-seg-btn" data-widget-width="480">480px</button>
+              <button type="button" class="insp-seg-btn" data-widget-width="360">360px</button>
+            </div>
+            <button type="button" class="insp-btn is-sm" id="insp-widget-csp" hidden>Allow CSP</button>
+            <button type="button" class="insp-btn is-sm" id="insp-widget-alt" hidden>Switch view</button>
+            <span class="insp-pill" id="insp-widget-state">Waiting</span>
+            <button type="button" class="insp-btn is-sm" id="insp-widget-reload">Reload frame</button>
+          </div>
+        </div>
+        <div id="insp-widget-empty" class="insp-empty">
+          Call a Loop tool (for example <code>loop__search</code>, <code>loop__inspect</code>, <code>loop__run</code>, or <code>loop__save</code>) or select a widget from the <strong>Widgets</strong> tab to preview it inside Loop's sandboxed MCP Apps host.
+        </div>
+        <div id="insp-widget-stage" class="insp-widget-stage" hidden>
+          <iframe id="insp-sandbox-frame" class="insp-sandbox-frame" sandbox="allow-scripts" referrerpolicy="no-referrer" title="Sandboxed MCP App preview"></iframe>
+        </div>
+      </div>
+
+      <div id="insp-out-response" class="insp-out-panel" hidden>
+        <pre id="insp-response-pre" class="insp-pre">No response yet.</pre>
+      </div>
+
+      <div id="insp-out-protocol" class="insp-out-panel" hidden>
+        <div class="insp-proto-head">
+          <span class="insp-muted">JSON-RPC requests, responses, and host-to-widget postMessage frames.</span>
+          <button type="button" class="insp-link-btn" id="insp-clear-log">Clear log</button>
+        </div>
+        <div id="insp-protocol-list" class="insp-proto-list"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<dialog id="insp-elicit-dialog" class="insp-dialog" aria-labelledby="insp-elicit-title">
+  <div class="insp-dialog-head">
+    <div>
+      <div class="insp-badges">
+        <span class="insp-pill is-info" id="insp-elicit-mode">elicitation/create</span>
+        <span class="insp-pill is-warn" id="insp-elicit-guard" hidden>Guard</span>
+      </div>
+      <h2 class="insp-dialog-title" id="insp-elicit-title">MCP Elicitation Request</h2>
+    </div>
+  </div>
+  <p class="insp-dialog-msg" id="insp-elicit-msg"></p>
+  <div id="insp-elicit-form" class="insp-form"></div>
+  <div id="insp-elicit-url-box" class="insp-meta-box" hidden>
+    <span class="insp-muted">URL-mode elicitation (owner confirms on Loop page):</span>
+    <code id="insp-elicit-url"></code>
+    <button type="button" class="insp-btn is-primary" id="insp-elicit-open-url">Open in Loop</button>
+  </div>
+  <div class="insp-dialog-actions">
+    <button type="button" class="insp-btn" id="insp-elicit-cancel">Cancel</button>
+    <button type="button" class="insp-btn" id="insp-elicit-decline">Decline</button>
+    <button type="button" class="insp-btn is-primary" id="insp-elicit-accept">Accept</button>
+  </div>
+</dialog>
+</body>
+</html>

@@ -1,0 +1,54 @@
+{
+  "id": "consent-all-is-well",
+  "about": "Public server, not decided: all works, so the agent does not ask.",
+  "reviewed": true,
+  "shared": true,
+  "prompt": "Open a ticket in Ticket Desk: title \"Printer is broken\", text \"It shows error 50 since Monday\". Use Loop.",
+  "connections": [
+    {
+      "name": "Ticket Desk",
+      "tools": [
+        {
+          "name": "create_ticket",
+          "description": "Open a support ticket with a title and a text.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "text"
+            ]
+          },
+          "result": "{\"ok\":true,\"ticketId\":\"T-107\"}"
+        },
+        {
+          "name": "list_tickets",
+          "description": "List the titles of all open tickets.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          },
+          "result": "{\"tickets\":[\"Printer is broken\",\"New laptop\"]}"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "feedback": "none",
+    "state": "ask",
+    "asks": false,
+    "ran": [
+      "Ticket Desk/create_ticket"
+    ],
+    "answerHas": [
+      "T-107"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+[Unit]
+Description=Loop hosted MCP gateway (useloop.sh)
+After=network-online.target
+Wants=network-online.target
+# Adjust RequiresMountsFor and ReadWritePaths if your data lives on a mounted volume.
+RequiresMountsFor=/var/lib/loop
+
+[Service]
+Type=simple
+User=loop
+Group=loop
+WorkingDirectory=/opt/loop/app
+EnvironmentFile=/etc/loop/loop.env
+ExecStart=/usr/bin/node server.mjs
+Restart=always
+RestartSec=3
+LimitNOFILE=65536
+# Hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/loop/data /var/lib/loop/search-models
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

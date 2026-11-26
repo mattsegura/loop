@@ -1,0 +1,30 @@
+/* Shared design tokens for Loop (index, landing, invite, join).
+   Warm paper-and-espresso palette with WCAG AA >= 4.5:1 text contrast. */
+:root {
+  --bg: light-dark(#FDFCFB, #1A1614);
+  --ink: light-dark(#3F2C2A, #F1E5E4);
+  --text: light-dark(#4D3533, #E6D8D6);
+  --muted: light-dark(#5C4745, #D0C5C3);
+  --soft: light-dark(#6D5855, #C5B0AC);
+  --faint: light-dark(#6D5855, #C5B0AC);
+  --hair: light-dark(rgba(77, 53, 51, .16), rgba(230, 216, 214, 0.16));
+  --line: light-dark(#E8DFDC, #36312F);
+  --card: light-dark(#FFFFFF, #241F1E);
+  --card-line: light-dark(#EFE7E4, #2D2927);
+  --tint: light-dark(#F5EFED, #252120);
+  --tint2: light-dark(#F7F2F0, #211F1E);
+  --brand: light-dark(#4D3533, #E6D8D6);
+  --brown: light-dark(#4D3533, #E6D8D6);
+  --brown-2: light-dark(#64494A, #CEBFBF);
+  --ok: light-dark(#35694B, #94C4A6);
+  --ok-bg: light-dark(#E9F2EC, #202522);
+  --warn: light-dark(#8A541C, #D9A474);
+  --warn-bg: light-dark(#FBF1E4, #241F18);
+  --no: light-dark(#A3412F, #F0907D);
+  --no-bg: light-dark(#FBEBE7, #2A211F);
+  --info: light-dark(#42557D, #B4BED3);
+  --info-bg: light-dark(#ECEFF6, #222427);
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --mono: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+}

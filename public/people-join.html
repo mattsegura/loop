@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FDFCFB">
+<script src="/theme-boot.js"></script>
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>Your Loop</title>
+<meta property="og:title" content="Your own Loop">
+<meta property="og:description" content="Somebody made a Loop for you. One use, ends in 7 days.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://useloop.sh/og-preview.png?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://useloop.sh/og-preview.png?v=2">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="64x64">
+<style>
+:root{--bg:light-dark(#FDFCFB, #1A1614);--tint:light-dark(#F7F2F0, #211F1E);--soft:light-dark(rgba(77,53,51,.07), rgba(230, 216, 214, 0.07));--hair:light-dark(rgba(77,53,51,.2), rgba(230, 216, 214, 0.2));--ink:light-dark(#4D3533, #E6D8D6);--muted:light-dark(#5C4745, #D0C5C3);--faint:light-dark(#6D5855, #C5B0AC);--brown:light-dark(#4D3533, #E6D8D6);--no:light-dark(#A3412F, #F0907D);
+--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;--sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI","Helvetica Neue",Arial,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 var(--sans);-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:20px 16px 60px}
+button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:pointer}
+.logo{display:block;height:30px;width:auto}
+main{width:min(400px,100%);margin-top:34px}
+h1{margin:0;font:500 28px/34px var(--serif);text-align:center;overflow-wrap:anywhere;text-wrap:balance}
+h1:focus{outline:none}
+.sub{margin:8px 0 0;font-size:14px;line-height:20px;color:var(--muted);text-align:center;text-wrap:pretty}
+.card{margin-top:14px;padding:14px 16px 8px;border-radius:16px;background:var(--tint)}
+.sub+.card{margin-top:24px}
+h2{margin:0;padding:2px 0 4px;font:500 13px/18px var(--sans);color:var(--faint)}
+ul{list-style:none;margin:0;padding:0}
+li+li{border-top:1px dotted var(--hair)}
+.ln{display:flex;align-items:center;gap:14px;width:100%;min-height:48px;text-align:left}
+button.ln{width:calc(100% + 20px);margin:0 -10px;padding:0 10px;border-radius:10px}
+button.ln:hover{background:var(--soft)}
+button.ln:disabled{opacity:.55;cursor:default;background:none}
+.ic{flex:none;width:24px;height:24px;display:grid;place-items:center;border-radius:7px;font-size:12px;font-weight:600;color:var(--muted);overflow:hidden}
+.ic>img{display:block;width:24px;height:24px;object-fit:contain}
+.ic.is-letter{background:var(--brown);color:light-dark(#fff, #241F1E)}
+.tx{flex:1;min-width:0;padding:6px 0}
+.t,.h{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.t{font-weight:500;line-height:19px}
+.h{font-size:12px;line-height:16px;color:var(--faint)}
+.h.is-whole{white-space:normal;overflow-wrap:anywhere}
+.v{flex:none;font-size:13px;color:var(--faint)}
+.act{flex:none;display:inline-flex;align-items:center;min-height:32px;padding:0 14px;border-radius:999px;background:var(--soft);font-size:13px;font-weight:500;color:var(--ink);text-decoration:none}
+.act:hover{background:light-dark(rgba(77,53,51,.13), rgba(230, 216, 214, 0.13))}
+.act:disabled{opacity:.55;cursor:default}
+.act:focus-visible{border-radius:999px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.go{flex:none;display:grid;color:var(--faint)}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:48px;margin-top:24px;padding:10px 18px;border-radius:999px;background:var(--brown);color:light-dark(#FDFCFB, #1A1614);font-weight:500;text-decoration:none;text-align:center}
+.btn:hover{background:light-dark(#3A2826, #F6EBE9)}
+.err{margin:12px 0 0;font-size:13px;line-height:18px;color:var(--no);text-align:center;text-wrap:pretty}
+.err:empty{display:none}
+.sign{margin-top:20px}
+.foot{max-width:320px;margin:18px auto 0;font-size:13px;line-height:18px;color:var(--muted);text-align:center;text-wrap:balance}
+.lnk{font-weight:500;color:var(--ink);text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.lnk:disabled{opacity:.55;cursor:default}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px;border-radius:10px}
+.btn:focus-visible{border-radius:999px}
+:root[data-dark] img[src$="logo.svg"] { filter: brightness(0) invert(.9) sepia(.12); }
+</style>
+</head>
+<body>
+<a href="/" aria-label="Loop home"><img class="logo" src="/logo.svg" alt="Loop" width="70" height="30"></a>
+<main id="card" aria-live="polite"><p class="sub">One moment…</p></main>
+<p class="foot" id="foot"></p>
+<script type="module" src="/people-join.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+	# Set CADDY_TLS_EMAIL in Caddy's environment (or replace with your ACME email on the server)
+	email {$CADDY_TLS_EMAIL}
+}
+
+useloop.sh {
+	encode zstd gzip
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		-Server
+	}
+	# Optional: Loop Text webhook/bridge service on localhost:8810
+	# handle_path /text/* {
+	# 	reverse_proxy 127.0.0.1:8810
+	# }
+	reverse_proxy 127.0.0.1:8799 {
+		# SSE streams and long MCP calls must not be buffered
+		flush_interval -1
+		transport http {
+			read_timeout 0
+			write_timeout 0
+		}
+	}
+}
+
+www.useloop.sh {
+	redir https://useloop.sh{uri} permanent
+}

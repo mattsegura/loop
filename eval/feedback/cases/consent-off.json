@@ -1,0 +1,48 @@
+{
+  "id": "consent-off",
+  "about": "Public server, on: the user turns feedback off through the agent.",
+  "reviewed": true,
+  "shared": true,
+  "state": "on",
+  "prompt": "Loop is not allowed to get feedback from my agents any more. Turn that off.",
+  "connections": [
+    {
+      "name": "Ticket Desk",
+      "tools": [
+        {
+          "name": "create_ticket",
+          "description": "Open a support ticket with a title and a text.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "text"
+            ]
+          },
+          "result": "{\"ok\":true,\"ticketId\":\"T-107\"}"
+        },
+        {
+          "name": "list_tickets",
+          "description": "List the titles of all open tickets.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {}
+          },
+          "result": "{\"tickets\":[\"Printer is broken\",\"New laptop\"]}"
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "feedback": "none",
+    "state": "off"
+  }
+}

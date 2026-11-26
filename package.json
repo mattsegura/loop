@@ -1,0 +1,47 @@
+{
+  "name": "loop-local-hub",
+  "version": "1.0.0",
+  "description": "Open-source MCP gateway, encrypted credential vault, and shared hub for AI agents.",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agents",
+    "gateway",
+    "vault",
+    "oauth",
+    "claude",
+    "codex",
+    "cursor"
+  ],
+  "type": "module",
+  "bin": {
+    "loop": "./scripts/loop-cli.mjs"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "restart": "sh scripts/restart-loop.sh",
+    "autoreload": "node scripts/auto-restart.mjs",
+    "project:exec": "node scripts/project-exec.mjs",
+    "connect": "node scripts/connect-agents.mjs",
+    "update": "node scripts/loop-cli.mjs update",
+    "hooks": "node scripts/agent-hooks.mjs",
+    "feedback": "node scripts/feedback.mjs",
+    "traces": "node scripts/agent-traces.mjs",
+    "eval:feedback": "node scripts/eval-feedback.mjs",
+    "eval:inspector": "node scripts/eval-inspector.mjs",
+    "test": "node --test test/*.test.mjs",
+    "test:audit": "node --test --test-reporter=spec test/audit/*.test.mjs"
+  },
+  "dependencies": {
+    "@json-render/core": "^0.23.2",
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "defuddle": "^0.19.13",
+    "jose": "^6.2.18",
+    "linkedom": "^0.18.15"
+  }
+}

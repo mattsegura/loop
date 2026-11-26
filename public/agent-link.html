@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FDFCFB">
+<script src="/theme-boot.js"></script>
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>Add an agent · Loop</title>
+<meta property="og:title" content="Add an agent to Loop">
+<meta property="og:description" content="Somebody shared an agent with you. One use, ends in 24 hours.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://useloop.sh/og-preview.png?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://useloop.sh/og-preview.png?v=2">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="64x64">
+<style>
+:root{--bg:light-dark(#FDFCFB, #1A1614);--tint:light-dark(#F7F2F0, #211F1E);--soft:light-dark(rgba(77,53,51,.07), rgba(230, 216, 214, 0.07));--hair:light-dark(rgba(77,53,51,.2), rgba(230, 216, 214, 0.2));--ink:light-dark(#4D3533, #E6D8D6);--muted:light-dark(#5C4745, #D0C5C3);--faint:light-dark(#6D5855, #C5B0AC);--brown:light-dark(#4D3533, #E6D8D6);--ok:light-dark(#3F7556, #87B89A);--no:light-dark(#A3412F, #F0907D);
+--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;--sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI","Helvetica Neue",Arial,sans-serif;--mono:"SF Mono",ui-monospace,Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 var(--sans);-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:20px 20px 60px}
+button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:pointer}
+.logo{display:block;height:30px;width:auto}
+.card{width:min(400px,100%);margin-top:40px;padding:30px 16px 18px;border-radius:16px;background:var(--tint)}
+.card:focus{outline:none}
+.home-ic{display:grid;place-items:center;width:88px;height:88px;margin:0 auto;border-radius:50%;background:var(--soft);font-size:34px;font-weight:600;overflow:hidden}
+.home-ic.logo img{width:44px;height:44px;display:block}
+.home-ic.pic{color:light-dark(#fff, #241F1E)}
+.home-ic.pic>img{width:100%;height:100%;object-fit:cover;display:block}
+.home-ic.is-blue{background:light-dark(#4B5E86, #A1B5DD)}.home-ic.is-green{background:light-dark(#3F7556, #87B89A)}.home-ic.is-amber{background:light-dark(#A9711F, #BC8946)}
+.home-ic.imessage{color:var(--ok)}
+.home-ic.imessage svg{width:40px;height:40px}
+h1{margin:18px 0 0;font:500 26px/32px var(--serif);text-align:center;overflow-wrap:anywhere;text-wrap:balance}
+h1:focus{outline:none}
+.sub{margin:6px 0 0;font-size:13.5px;line-height:19px;color:var(--muted);text-align:center;text-wrap:pretty}
+.rows{list-style:none;margin:22px 0 0;padding:0}
+.rows li{display:flex;align-items:center;gap:14px;min-height:46px}
+.rows li+li{border-top:1px dotted var(--hair)}
+.rows svg{flex:none;color:var(--muted)}
+.rows .t{flex:1;min-width:0;font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rows .v{flex:none;font-size:13px;color:var(--faint)}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;min-height:48px;margin-top:20px;padding:10px 18px;border-radius:999px;background:var(--brown);color:light-dark(#FDFCFB, #1A1614);font-weight:500;text-decoration:none;text-align:center}
+.btn:hover{background:light-dark(#3A2826, #F6EBE9)}
+.btn:disabled{opacity:.55;cursor:default}
+.alt{display:block;width:100%;min-height:46px;margin-top:6px;font-size:13.5px;color:var(--muted)}
+.alt:hover{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.pick{list-style:none;margin:18px 0 0;padding:0}
+.pick li+li{border-top:1px dotted var(--hair)}
+.pick button{display:flex;align-items:center;gap:12px;width:100%;min-height:48px;text-align:left;font-weight:500}
+.pick .home-ic{width:24px;height:24px;margin:0;border-radius:7px;font-size:12px;background:none}
+.pick .home-ic:not(.logo){background:var(--soft)}
+.pick .home-ic.logo img{width:22px;height:22px}
+.pick .go{margin-left:auto;display:grid;color:var(--faint)}
+.code{display:flex;align-items:flex-start;gap:10px;margin-top:18px;padding:12px 6px 12px 14px;border-radius:13px;background:var(--soft)}
+.code pre{flex:1;min-width:0;margin:0;padding:6px 0;font:12.5px/1.55 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere}
+.code button{flex:none;min-height:34px;padding:0 8px;border-radius:9px;font-size:13.5px;font-weight:600}
+.note{margin:12px 4px 0;font-size:13px;line-height:18px;color:var(--muted);text-wrap:pretty}
+.wait{display:flex;align-items:center;gap:12px;margin-top:16px;padding:12px 14px;border-radius:12px;background:var(--soft);font-size:13px}
+.pulse{width:10px;height:10px;flex:none;border-radius:50%;background:light-dark(#C9A77A, #7F633D);box-shadow:0 0 0 4px light-dark(rgba(201,167,122,.25), rgba(127, 99, 61, 0.25));animation:p 1.6s ease-in-out infinite}
+.wait.is-ok .pulse{background:var(--ok);box-shadow:0 0 0 4px light-dark(rgba(63,117,86,.18), rgba(135, 184, 154, 0.18));animation:none}
+@keyframes p{50%{opacity:.45}}
+.err{color:var(--no)}
+.foot{max-width:300px;margin:20px auto 0;font-size:13px;line-height:18px;color:var(--muted);text-align:center;text-wrap:balance}
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px;border-radius:10px}
+.btn:focus-visible{border-radius:999px}
+@media (prefers-reduced-motion:reduce){.pulse{animation:none}}
+:root[data-dark] img[src$="logo.svg"] { filter: brightness(0) invert(.9) sepia(.12); }
+</style>
+</head>
+<body>
+<a href="/" aria-label="Loop home"><img class="logo" src="/logo.svg" alt="Loop" width="70" height="30"></a>
+<main class="card" id="card" aria-live="polite"><p class="sub">One moment…</p></main>
+<p class="foot" id="foot"></p>
+<script type="module" src="/agent-link.js"></script>
+</body>
+</html>

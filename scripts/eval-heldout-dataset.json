@@ -1,0 +1,1009 @@
+{
+  "version": 1,
+  "frozenAt": "2026-11-21T17:24:00-06:00",
+  "note": "STRICTLY HELD-OUT EVAL DATASET — written before running against the ranker. DO NOT MODIFY after first run.",
+  "connections": [
+    {
+      "id": "figma",
+      "name": "Figma",
+      "description": "UI design files, styles, components, image exports, and design review comments.",
+      "tools": [
+        {
+          "name": "get_figma_data",
+          "description": "Retrieve layout nodes, frames, and properties from a Figma file or specific node ID.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "fileKey": { "type": "string", "description": "Figma file key from the file URL" },
+              "nodeId": { "type": "string", "description": "Optional node ID to scope the response" },
+              "depth": { "type": "integer", "description": "Tree traversal depth" }
+            },
+            "required": ["fileKey"]
+          }
+        },
+        {
+          "name": "download_figma_images",
+          "description": "Export and download SVG or PNG image assets for nodes in a Figma document.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "fileKey": { "type": "string", "description": "Figma file key" },
+              "nodes": { "type": "array", "items": { "type": "string" }, "description": "Node IDs to export" },
+              "format": { "type": "string", "enum": ["png", "svg", "jpg", "pdf"] }
+            },
+            "required": ["fileKey", "nodes"]
+          }
+        },
+        {
+          "name": "get_styles",
+          "description": "List published color palettes, typography text styles, and effect styles in a Figma file.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "fileKey": { "type": "string", "description": "Figma file key" }
+            },
+            "required": ["fileKey"]
+          }
+        },
+        {
+          "name": "get_component_sets",
+          "description": "Fetch reusable UI component sets and variants published in a Figma library.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "fileKey": { "type": "string", "description": "Figma library file key" }
+            },
+            "required": ["fileKey"]
+          }
+        },
+        {
+          "name": "post_comment",
+          "description": "Post a design feedback comment pinned to coordinates or a node in a Figma file.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "fileKey": { "type": "string" },
+              "message": { "type": "string" },
+              "nodeId": { "type": "string" }
+            },
+            "required": ["fileKey", "message"]
+          }
+        },
+        {
+          "name": "get_file_versions",
+          "description": "List historical version snapshots of a Figma design file.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "fileKey": { "type": "string" }
+            },
+            "required": ["fileKey"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "quickbooks",
+      "name": "QuickBooks Online",
+      "description": "Small-business accounting, general ledger, financial statements, bank feeds, and vendor bills.",
+      "tools": [
+        {
+          "name": "create_expense",
+          "description": "Record a new business expense transaction against a ledger account and payment method.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "amount": { "type": "number", "description": "Expense amount in USD" },
+              "accountRef": { "type": "string", "description": "Expense category or account ID" },
+              "vendorName": { "type": "string", "description": "Payee or merchant name" },
+              "txnDate": { "type": "string", "description": "Transaction date YYYY-MM-DD" }
+            },
+            "required": ["amount", "accountRef"]
+          }
+        },
+        {
+          "name": "list_profit_and_loss",
+          "description": "Generate a Profit and Loss income statement report showing revenue, expenses, and net income for a date range.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "startDate": { "type": "string", "description": "Period start date YYYY-MM-DD" },
+              "endDate": { "type": "string", "description": "Period end date YYYY-MM-DD" },
+              "accountingMethod": { "type": "string", "enum": ["Accrual", "Cash"] }
+            },
+            "required": ["startDate", "endDate"]
+          }
+        },
+        {
+          "name": "get_balance_sheet",
+          "description": "Retrieve the company Balance Sheet showing assets, liabilities, cash balances, and equity as of a date.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "asOfDate": { "type": "string", "description": "Report date YYYY-MM-DD" }
+            },
+            "required": ["asOfDate"]
+          }
+        },
+        {
+          "name": "send_invoice_reminder",
+          "description": "Email a payment reminder to a customer for an overdue QuickBooks invoice.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "invoiceId": { "type": "string", "description": "QuickBooks invoice ID" },
+              "recipientEmail": { "type": "string" }
+            },
+            "required": ["invoiceId"]
+          }
+        },
+        {
+          "name": "reconcile_bank_feed",
+          "description": "Match imported bank statement transactions against general ledger entries for reconciliation.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "accountId": { "type": "string", "description": "Bank account ID" },
+              "statementEndDate": { "type": "string", "description": "Statement closing date YYYY-MM-DD" },
+              "endingBalance": { "type": "number" }
+            },
+            "required": ["accountId", "statementEndDate"]
+          }
+        },
+        {
+          "name": "create_vendor_bill",
+          "description": "Create an accounts-payable bill owed to a supplier with line items and due date.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "vendorId": { "type": "string" },
+              "totalAmount": { "type": "number" },
+              "dueDate": { "type": "string" }
+            },
+            "required": ["vendorId", "totalAmount"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "k8s",
+      "name": "Kubernetes",
+      "description": "Cluster orchestration, pods, deployments, container logs, and node diagnostics.",
+      "tools": [
+        {
+          "name": "get_pods",
+          "description": "List pods in a Kubernetes namespace with phase, restart count, and readiness status.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "namespace": { "type": "string", "description": "Kubernetes namespace" },
+              "labelSelector": { "type": "string", "description": "Label filter such as app=checkout" }
+            },
+            "required": ["namespace"]
+          }
+        },
+        {
+          "name": "get_pod_logs",
+          "description": "Fetch stdout and stderr container logs from a running or previously crashed Kubernetes pod.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "namespace": { "type": "string" },
+              "podName": { "type": "string" },
+              "container": { "type": "string" },
+              "previous": { "type": "boolean", "description": "Fetch logs from the previous terminated container" },
+              "tailLines": { "type": "integer" }
+            },
+            "required": ["namespace", "podName"]
+          }
+        },
+        {
+          "name": "scale_deployment",
+          "description": "Change the desired replica count of a Kubernetes deployment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "namespace": { "type": "string" },
+              "deploymentName": { "type": "string" },
+              "replicas": { "type": "integer", "description": "Desired number of pod replicas" }
+            },
+            "required": ["namespace", "deploymentName", "replicas"]
+          }
+        },
+        {
+          "name": "rollout_restart",
+          "description": "Trigger a rolling restart of all pods belonging to a Kubernetes deployment.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "namespace": { "type": "string" },
+              "deploymentName": { "type": "string" }
+            },
+            "required": ["namespace", "deploymentName"]
+          }
+        },
+        {
+          "name": "describe_node",
+          "description": "Inspect CPU, memory allocatable capacity, conditions, and taints of a cluster worker node.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "nodeName": { "type": "string" }
+            },
+            "required": ["nodeName"]
+          }
+        },
+        {
+          "name": "apply_manifest",
+          "description": "Apply a YAML Kubernetes resource manifest to the cluster.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "namespace": { "type": "string" },
+              "yamlManifest": { "type": "string" }
+            },
+            "required": ["yamlManifest"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "datadog",
+      "name": "Datadog",
+      "description": "Infrastructure monitoring, APM metrics, alert monitors, RUM telemetry, and incident management.",
+      "tools": [
+        {
+          "name": "query_metrics",
+          "description": "Run a timeseries metric query in Datadog for latency, CPU, error rates, or throughput.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "query": { "type": "string", "description": "Datadog metric query expression" },
+              "fromEpoch": { "type": "integer" },
+              "toEpoch": { "type": "integer" }
+            },
+            "required": ["query"]
+          }
+        },
+        {
+          "name": "list_monitors",
+          "description": "Search and list Datadog alerting monitors and their current alert state.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "query": { "type": "string", "description": "Filter monitors by name or tag" },
+              "state": { "type": "string", "enum": ["Alert", "Warn", "No Data", "OK"] }
+            }
+          }
+        },
+        {
+          "name": "mute_monitor",
+          "description": "Silence or mute a noisy Datadog alert monitor for a specified duration.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "monitorId": { "type": "integer", "description": "Datadog monitor ID" },
+              "endEpoch": { "type": "integer", "description": "Unix timestamp when mute expires" },
+              "scope": { "type": "string" }
+            },
+            "required": ["monitorId"]
+          }
+        },
+        {
+          "name": "search_rum_events",
+          "description": "Query Real User Monitoring frontend browser sessions, page loads, and client errors.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "query": { "type": "string" },
+              "limit": { "type": "integer" }
+            },
+            "required": ["query"]
+          }
+        },
+        {
+          "name": "create_incident",
+          "description": "Declare a new operational incident in Datadog with severity and commander.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "title": { "type": "string" },
+              "severity": { "type": "string", "enum": ["SEV-1", "SEV-2", "SEV-3", "SEV-4"] }
+            },
+            "required": ["title", "severity"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "hubspot",
+      "name": "HubSpot",
+      "description": "Sales CRM contacts, companies, deals pipeline, call notes, and marketing workflows.",
+      "tools": [
+        {
+          "name": "search_contacts",
+          "description": "Search CRM contacts by name, email address, company, or lifecycle stage.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "query": { "type": "string", "description": "Name, email, or search term" },
+              "limit": { "type": "integer" }
+            },
+            "required": ["query"]
+          }
+        },
+        {
+          "name": "create_deal",
+          "description": "Create a new sales opportunity deal in a HubSpot pipeline with amount and close date.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "dealName": { "type": "string" },
+              "amount": { "type": "number" },
+              "stage": { "type": "string" }
+            },
+            "required": ["dealName", "stage"]
+          }
+        },
+        {
+          "name": "update_deal_stage",
+          "description": "Move an existing HubSpot sales deal to a new pipeline stage such as closedwon or negotiation.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "dealId": { "type": "string", "description": "HubSpot deal ID" },
+              "stage": { "type": "string", "description": "Target pipeline stage" }
+            },
+            "required": ["dealId", "stage"]
+          }
+        },
+        {
+          "name": "log_call_activity",
+          "description": "Log a sales phone call note and outcome against a HubSpot contact or deal.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "contactId": { "type": "string" },
+              "notes": { "type": "string" },
+              "durationMs": { "type": "integer" }
+            },
+            "required": ["contactId", "notes"]
+          }
+        },
+        {
+          "name": "list_companies",
+          "description": "Search B2B company records and inspect account owners and annual revenue.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "query": { "type": "string", "description": "Company name or domain" }
+            }
+          }
+        },
+        {
+          "name": "enroll_workflow",
+          "description": "Enroll a HubSpot contact into an automated email drip or nurture workflow.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "workflowId": { "type": "string" },
+              "contactEmail": { "type": "string" }
+            },
+            "required": ["workflowId", "contactEmail"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "gdrive",
+      "name": "Google Drive",
+      "description": "Cloud document storage, spreadsheets, slide decks, folders, and sharing permissions.",
+      "tools": [
+        {
+          "name": "search_files",
+          "description": "Search files, spreadsheets, PDFs, and presentations stored in Google Drive by title or text.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "query": { "type": "string", "description": "Search query for file name or contents" },
+              "mimeType": { "type": "string" }
+            },
+            "required": ["query"]
+          }
+        },
+        {
+          "name": "read_file_content",
+          "description": "Read the text or tabular content of a Google Drive file by its file ID.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "fileId": { "type": "string" }
+            },
+            "required": ["fileId"]
+          }
+        },
+        {
+          "name": "share_file_permissions",
+          "description": "Grant viewer, commenter, or editor access permissions on a Google Drive file or folder to a user.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "fileId": { "type": "string", "description": "Google Drive file ID" },
+              "emailAddress": { "type": "string", "description": "Collaborator email" },
+              "role": { "type": "string", "enum": ["reader", "commenter", "writer"] }
+            },
+            "required": ["fileId", "emailAddress", "role"]
+          }
+        },
+        {
+          "name": "create_folder",
+          "description": "Create a new folder in Google Drive optionally nested inside a parent folder.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "parentFolderId": { "type": "string" }
+            },
+            "required": ["name"]
+          }
+        },
+        {
+          "name": "export_google_doc",
+          "description": "Export a Google Docs or Slides document to PDF, DOCX, or plain Markdown.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "fileId": { "type": "string" },
+              "exportFormat": { "type": "string", "enum": ["pdf", "docx", "markdown"] }
+            },
+            "required": ["fileId", "exportFormat"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "aws_s3",
+      "name": "AWS S3",
+      "description": "Object storage buckets, binary artifacts, temporary presigned URLs, and cold archive lifecycle policies.",
+      "tools": [
+        {
+          "name": "list_buckets",
+          "description": "List all S3 object storage buckets in the AWS account.",
+          "inputSchema": { "type": "object", "properties": {} }
+        },
+        {
+          "name": "get_object",
+          "description": "Download or read an object stored at a bucket and key in AWS S3.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "bucket": { "type": "string" },
+              "key": { "type": "string" }
+            },
+            "required": ["bucket", "key"]
+          }
+        },
+        {
+          "name": "put_object",
+          "description": "Upload content or an artifact file into an AWS S3 bucket at the specified key.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "bucket": { "type": "string" },
+              "key": { "type": "string" },
+              "body": { "type": "string" }
+            },
+            "required": ["bucket", "key", "body"]
+          }
+        },
+        {
+          "name": "generate_presigned_url",
+          "description": "Generate a time-limited temporary presigned download or upload URL for an S3 object.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "bucket": { "type": "string" },
+              "key": { "type": "string" },
+              "expiresInSeconds": { "type": "integer" }
+            },
+            "required": ["bucket", "key"]
+          }
+        },
+        {
+          "name": "set_bucket_lifecycle",
+          "description": "Configure lifecycle rules to transition old S3 objects to Glacier cold storage or expire them.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "bucket": { "type": "string" },
+              "prefix": { "type": "string" },
+              "transitionDays": { "type": "integer" },
+              "storageClass": { "type": "string", "enum": ["GLACIER", "DEEP_ARCHIVE", "STANDARD_IA"] }
+            },
+            "required": ["bucket", "transitionDays", "storageClass"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "health_fhir",
+      "name": "FHIR Clinical Health",
+      "description": "Electronic health records, patient vitals, prescriptions, lab panels, and clinic appointments.",
+      "tools": [
+        {
+          "name": "get_patient_vitals",
+          "description": "Retrieve recorded patient vital signs including blood pressure, heart rate, temperature, and SpO2.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "patientId": { "type": "string", "description": "FHIR patient identifier" },
+              "metric": { "type": "string", "description": "Optional vital sign filter" }
+            },
+            "required": ["patientId"]
+          }
+        },
+        {
+          "name": "list_medications",
+          "description": "List active and historical medication prescriptions and dosages for a patient.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "patientId": { "type": "string", "description": "FHIR patient identifier" },
+              "status": { "type": "string", "enum": ["active", "completed", "stopped"] }
+            },
+            "required": ["patientId"]
+          }
+        },
+        {
+          "name": "get_lab_results",
+          "description": "Fetch diagnostic laboratory test results such as blood panels, A1C, and cholesterol.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "patientId": { "type": "string" },
+              "category": { "type": "string" }
+            },
+            "required": ["patientId"]
+          }
+        },
+        {
+          "name": "schedule_appointment",
+          "description": "Book a clinical office visit or follow-up checkup appointment for a patient.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "patientId": { "type": "string" },
+              "providerId": { "type": "string" },
+              "startTime": { "type": "string", "description": "ISO-8601 appointment start time" },
+              "reason": { "type": "string" }
+            },
+            "required": ["patientId", "startTime"]
+          }
+        },
+        {
+          "name": "get_immunization_history",
+          "description": "Retrieve vaccination and immunization administration records for a patient.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "patientId": { "type": "string" }
+            },
+            "required": ["patientId"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "github",
+      "name": "GitHub",
+      "description": "Open-source and private git repositories, issues, pull requests, and CI workflows.",
+      "tools": [
+        {
+          "name": "create_issue",
+          "description": "Create a new issue or bug report in a GitHub repository.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "owner": { "type": "string" },
+              "repo": { "type": "string" },
+              "title": { "type": "string" },
+              "body": { "type": "string" }
+            },
+            "required": ["owner", "repo", "title"]
+          }
+        },
+        {
+          "name": "list_issues",
+          "description": "List open or closed issues in a GitHub repository.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "owner": { "type": "string" },
+              "repo": { "type": "string" },
+              "state": { "type": "string", "enum": ["open", "closed", "all"] }
+            },
+            "required": ["owner", "repo"]
+          }
+        },
+        {
+          "name": "update_issue",
+          "description": "Edit title, state, labels, or assignees on a GitHub repository issue.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "owner": { "type": "string" },
+              "repo": { "type": "string" },
+              "issueNumber": { "type": "integer" },
+              "state": { "type": "string" }
+            },
+            "required": ["owner", "repo", "issueNumber"]
+          }
+        },
+        {
+          "name": "add_comment",
+          "description": "Post a comment on a GitHub issue or pull request.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "owner": { "type": "string" },
+              "repo": { "type": "string" },
+              "issueNumber": { "type": "integer" },
+              "body": { "type": "string" }
+            },
+            "required": ["owner", "repo", "issueNumber", "body"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "linear",
+      "name": "Linear",
+      "description": "Product engineering issue tracking, sprint cycles, bugs, and roadmap projects.",
+      "tools": [
+        {
+          "name": "create_issue",
+          "description": "Create a new engineering issue, bug report, or sprint task in a Linear team.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "teamId": { "type": "string" },
+              "title": { "type": "string" },
+              "description": { "type": "string" },
+              "priority": { "type": "integer" }
+            },
+            "required": ["teamId", "title"]
+          }
+        },
+        {
+          "name": "list_issues",
+          "description": "Search and filter Linear engineering issues by team, cycle, or assignee.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "teamId": { "type": "string" },
+              "assignee": { "type": "string" }
+            }
+          }
+        },
+        {
+          "name": "update_issue",
+          "description": "Update workflow state, priority, or assignee of a Linear issue.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "issueId": { "type": "string" },
+              "state": { "type": "string" }
+            },
+            "required": ["issueId"]
+          }
+        },
+        {
+          "name": "add_comment",
+          "description": "Add a discussion comment to a Linear issue.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "issueId": { "type": "string" },
+              "body": { "type": "string" }
+            },
+            "required": ["issueId", "body"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "jira",
+      "name": "Jira",
+      "description": "Enterprise Jira software project tickets, epics, bugs, and sprint backlogs.",
+      "tools": [
+        {
+          "name": "create_issue",
+          "description": "Create a new Jira ticket, bug, or story in a Jira software project.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "projectKey": { "type": "string" },
+              "summary": { "type": "string" },
+              "issueType": { "type": "string", "enum": ["Bug", "Task", "Story", "Epic"] },
+              "description": { "type": "string" }
+            },
+            "required": ["projectKey", "summary", "issueType"]
+          }
+        },
+        {
+          "name": "list_issues",
+          "description": "Run a JQL query to list Jira tickets in a project or sprint.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "jql": { "type": "string" }
+            },
+            "required": ["jql"]
+          }
+        },
+        {
+          "name": "update_issue",
+          "description": "Transition or modify fields on an existing Jira ticket.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "issueKey": { "type": "string" },
+              "status": { "type": "string" }
+            },
+            "required": ["issueKey"]
+          }
+        },
+        {
+          "name": "add_comment",
+          "description": "Add a comment to a Jira ticket.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "issueKey": { "type": "string" },
+              "body": { "type": "string" }
+            },
+            "required": ["issueKey", "body"]
+          }
+        }
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "id": "monthly-close-checklist",
+      "name": "Monthly Bookkeeping Close Checklist",
+      "description": "Step-by-step month-end accounting close workflow: reconcile bank feeds, verify accruals, review Profit and Loss variances, and lock the QuickBooks ledger.",
+      "content": "# Monthly Bookkeeping Close SOP\n1. Run `quickbooks__reconcile_bank_feed` for every operating account.\n2. Pull `quickbooks__list_profit_and_loss` and `quickbooks__get_balance_sheet`.\n3. Flag expenses > 15% over budget and send overdue reminders."
+    },
+    {
+      "id": "k8s-crashloop-runbook",
+      "name": "Kubernetes CrashLoopBackOff Triage Runbook",
+      "description": "Operational incident runbook for diagnosing CrashLoopBackOff pods, OOMKilled containers, inspecting previous logs, checking node capacity, and safely rolling back.",
+      "content": "# CrashLoopBackOff Runbook\n1. Run `k8s__get_pods` to locate restarting pods.\n2. Fetch `k8s__get_pod_logs` with `previous: true`.\n3. Check `k8s__describe_node` for memory pressure before `k8s__rollout_restart`."
+    },
+    {
+      "id": "figma-to-tokens",
+      "name": "Figma Design Tokens Export",
+      "description": "Design-system workflow for auditing Figma color and typography styles and exporting structured CSS custom properties and JSON design tokens.",
+      "content": "# Figma to Design Tokens\n1. Call `figma__get_styles` and `figma__get_figma_data`.\n2. Map color/font styles to semantic token names.\n3. Output tokens.css and tokens.json."
+    },
+    {
+      "id": "enterprise-qbr-prep",
+      "name": "Enterprise QBR Deck Preparation",
+      "description": "Account management playbook to assemble a Quarterly Business Review deck from HubSpot companies, open deals, call notes, and renewal risks.",
+      "content": "# Enterprise QBR Prep\n1. Call `hubspot__list_companies` and `hubspot__search_contacts`.\n2. Summarize call notes and renewal stage.\n3. Draft executive QBR outline."
+    },
+    {
+      "id": "hipaa-record-export",
+      "name": "HIPAA Compliant Clinical Record Export",
+      "description": "Healthcare compliance SOP for exporting patient lab results and medication summaries while stripping PHI identifiers per HIPAA Safe Harbor rules.",
+      "content": "# HIPAA Record Export SOP\n1. Fetch `health_fhir__get_lab_results` and `health_fhir__list_medications`.\n2. Redact all 18 Safe Harbor identifiers.\n3. Generate audit-logged summary."
+    },
+    {
+      "id": "s3-cold-archive-policy",
+      "name": "S3 Cold Archive Lifecycle Guide",
+      "description": "Cloud storage cost-optimization guide for identifying stale S3 buckets, transitioning objects to Glacier Deep Archive, and issuing temporary presigned download links.",
+      "content": "# S3 Cold Archive Guide\n1. Run `aws_s3__list_buckets`.\n2. Apply `aws_s3__set_bucket_lifecycle` with `GLACIER` or `DEEP_ARCHIVE`.\n3. Use `aws_s3__generate_presigned_url` when temporary retrieval is needed."
+    }
+  ],
+  "adversarialSpamConnections": [
+    {
+      "id": "mega_spam_helper",
+      "name": "Universal Workspace Helper",
+      "description": "General purpose assistant utility.",
+      "tools": [
+        {
+          "name": "do_everything_helper",
+          "description": "All-in-one universal helper for figma colors styles assets design tokens quickbooks p&l balance sheet bank reconcile expense kubernetes pod logs scale replicas datadog metrics monitor alert hubspot crm contacts deal google drive share file s3 presigned url glacier patient vitals medications lab appointment github linear jira issue bug ticket report team.",
+          "inputSchema": { "type": "object", "properties": { "input": { "type": "string" } } }
+        },
+        {
+          "name": "super_search_utility",
+          "description": "Comprehensive multi-domain utility covering accounting finance cash burn bookkeeping close devops containers crashloop alerts crm sales pipeline qbr health clinical records blood pressure prescriptions file sharing permissions cloud storage buckets and issue triage.",
+          "inputSchema": { "type": "object", "properties": { "query": { "type": "string" } } }
+        },
+        {
+          "name": "enterprise_status_aggregator",
+          "description": "Long verbose enterprise status report aggregator that compiles weekly team updates, bug summaries, financial metrics, design reviews, deployment health checks, deal updates, file audit trails, and patient care status reports across every department and workspace.",
+          "inputSchema": { "type": "object", "properties": { "scope": { "type": "string" } } }
+        }
+      ]
+    }
+  ],
+  "retrievalQueries": [
+    { "id": "terse_1", "style": "terse", "query": "p&l last quarter", "expectKind": "tool", "expect": ["quickbooks__list_profit_and_loss"] },
+    { "id": "terse_2", "style": "terse", "query": "pod logs", "expectKind": "tool", "expect": ["k8s__get_pod_logs"] },
+    { "id": "terse_3", "style": "terse", "query": "presigned s3 url", "expectKind": "tool", "expect": ["aws_s3__generate_presigned_url"] },
+    { "id": "terse_4", "style": "terse", "query": "blood pressure history", "expectKind": "tool", "expect": ["health_fhir__get_patient_vitals"] },
+    { "id": "terse_5", "style": "terse", "query": "figma colors", "expectKind": "tool", "expect": ["figma__get_styles"] },
+
+    { "id": "vague_1", "style": "vague", "query": "why is checkout container keeps dying", "expectKind": "tool", "expect": ["k8s__get_pod_logs", "k8s__get_pods"] },
+    { "id": "vague_2", "style": "vague", "query": "how much cash did we burn", "expectKind": "tool", "expect": ["quickbooks__list_profit_and_loss", "quickbooks__get_balance_sheet"] },
+    { "id": "vague_3", "style": "vague", "query": "let Sarah edit that Q4 deck", "expectKind": "tool", "expect": ["gdrive__share_file_permissions"] },
+    { "id": "vague_4", "style": "vague", "query": "what meds is patient 42 on", "expectKind": "tool", "expect": ["health_fhir__list_medications"] },
+    { "id": "vague_5", "style": "vague", "query": "who owns the Acme deal", "expectKind": "tool", "expect": ["hubspot__list_companies", "hubspot__search_contacts"] },
+
+    { "id": "typo_1", "style": "misspelled", "query": "reconsile bank statment", "expectKind": "tool", "expect": ["quickbooks__reconcile_bank_feed"] },
+    { "id": "typo_2", "style": "misspelled", "query": "skale kubernets replicas to 5", "expectKind": "tool", "expect": ["k8s__scale_deployment"] },
+    { "id": "typo_3", "style": "misspelled", "query": "download figma assests", "expectKind": "tool", "expect": ["figma__download_figma_images"] },
+    { "id": "typo_4", "style": "misspelled", "query": "serch hubspot contcts", "expectKind": "tool", "expect": ["hubspot__search_contacts"] },
+    { "id": "typo_5", "style": "misspelled", "query": "shedule checkup apointment", "expectKind": "tool", "expect": ["health_fhir__schedule_appointment"] },
+
+    { "id": "multi_1", "style": "multi-step", "query": "pull the Q3 spreadsheet from Drive and mute the noisy latency alert in Datadog", "expectKind": "tool", "expectAll": ["gdrive__search_files", "datadog__mute_monitor"], "expect": ["gdrive__search_files", "datadog__mute_monitor"] },
+    { "id": "multi_2", "style": "multi-step", "query": "find John Doe in HubSpot and move his deal to closed won", "expectKind": "tool", "expectAll": ["hubspot__search_contacts", "hubspot__update_deal_stage"], "expect": ["hubspot__search_contacts", "hubspot__update_deal_stage"] },
+    { "id": "multi_3", "style": "multi-step", "query": "check patient lab results then prepare a redacted HIPAA export", "expectKind": "both", "expect": ["health_fhir__get_lab_results"], "expectSkill": ["hipaa-record-export"] },
+
+    { "id": "skill_1", "style": "skill", "query": "walk me through month-end bookkeeping close", "expectKind": "skill", "expect": ["monthly-close-checklist"] },
+    { "id": "skill_2", "style": "skill", "query": "how do we triage CrashLoopBackOff pods", "expectKind": "skill", "expect": ["k8s-crashloop-runbook"] },
+    { "id": "skill_3", "style": "skill", "query": "export design tokens from Figma styles", "expectKind": "skill", "expect": ["figma-to-tokens"] },
+    { "id": "skill_4", "style": "skill", "query": "prepare an enterprise QBR deck", "expectKind": "skill", "expect": ["enterprise-qbr-prep"] },
+
+    { "id": "dup_jira", "style": "near-dup-context", "query": "open a Jira ticket for the checkout regression", "expectKind": "tool", "expect": ["jira__create_issue"] },
+    { "id": "dup_gh", "style": "near-dup-context", "query": "file a bug on our open-source GitHub repo", "expectKind": "tool", "expect": ["github__create_issue"] },
+    { "id": "dup_lin", "style": "near-dup-context", "query": "add a task to our Linear sprint", "expectKind": "tool", "expect": ["linear__create_issue"] },
+    { "id": "dup_ambig", "style": "near-dup-ambiguous", "query": "create an issue about the login crash", "expectKind": "ambiguous", "expectMultiple": ["github__create_issue", "linear__create_issue", "jira__create_issue"] },
+
+    { "id": "known_miss", "style": "regression", "query": "file a bug report for the team", "expectKind": "tool", "expect": ["linear__create_issue", "jira__create_issue", "github__create_issue"] }
+  ],
+  "negativeQueries": [
+    { "id": "neg_1", "query": "book a round-trip Amtrak train from Boston to NYC" },
+    { "id": "neg_2", "query": "translate this poem into Latin hexameter" },
+    { "id": "neg_3", "query": "recommend a sourdough starter hydration ratio" },
+    { "id": "neg_4", "query": "turn off the living room smart thermostat" }
+  ],
+  "e2ePrompts": [
+    {
+      "id": "e2e_01",
+      "prompt": "Show our P&L from 2026-07-01 to 2026-09-30 on Accrual basis",
+      "expectAction": "run_tool",
+      "expectTool": "quickbooks__list_profit_and_loss",
+      "expectArgs": { "startDate": "2026-07-01", "endDate": "2026-09-30", "accountingMethod": "Accrual" }
+    },
+    {
+      "id": "e2e_02",
+      "prompt": "Fetch the last 100 pod logs for checkout-api-7f8b in prod namespace from previous crashed container",
+      "expectAction": "run_tool",
+      "expectTool": "k8s__get_pod_logs",
+      "expectArgs": { "namespace": "prod", "podName": "checkout-api-7f8b", "previous": true, "tailLines": 100 }
+    },
+    {
+      "id": "e2e_03",
+      "prompt": "Skale kubernets replicas for payment-worker in prod to 5",
+      "expectAction": "run_tool",
+      "expectTool": "k8s__scale_deployment",
+      "expectArgs": { "namespace": "prod", "deploymentName": "payment-worker", "replicas": 5 }
+    },
+    {
+      "id": "e2e_04",
+      "prompt": "Generate a presigned s3 url for bucket acme-exports key reports/q3.csv expiring in 3600 seconds",
+      "expectAction": "run_tool",
+      "expectTool": "aws_s3__generate_presigned_url",
+      "expectArgs": { "bucket": "acme-exports", "key": "reports/q3.csv", "expiresInSeconds": 3600 }
+    },
+    {
+      "id": "e2e_05",
+      "prompt": "Let sarah@acme.com edit Google Drive file file_q4_deck",
+      "expectAction": "run_tool",
+      "expectTool": "gdrive__share_file_permissions",
+      "expectArgs": { "fileId": "file_q4_deck", "emailAddress": "sarah@acme.com", "role": "writer" }
+    },
+    {
+      "id": "e2e_06",
+      "prompt": "Get blood pressure vitals history for patient pat_42",
+      "expectAction": "run_tool",
+      "expectTool": "health_fhir__get_patient_vitals",
+      "expectArgs": { "patientId": "pat_42", "metric": "blood_pressure" }
+    },
+    {
+      "id": "e2e_07",
+      "prompt": "What active meds is patient pat_42 on",
+      "expectAction": "run_tool",
+      "expectTool": "health_fhir__list_medications",
+      "expectArgs": { "patientId": "pat_42", "status": "active" }
+    },
+    {
+      "id": "e2e_08",
+      "prompt": "Shedule checkup apointment for patient pat_42 at 2026-12-01T10:00:00Z",
+      "expectAction": "run_tool",
+      "expectTool": "health_fhir__schedule_appointment",
+      "expectArgs": { "patientId": "pat_42", "startTime": "2026-12-01T10:00:00Z", "reason": "checkup" }
+    },
+    {
+      "id": "e2e_09",
+      "prompt": "List figma color styles for fileKey fig_brand_2026",
+      "expectAction": "run_tool",
+      "expectTool": "figma__get_styles",
+      "expectArgs": { "fileKey": "fig_brand_2026" }
+    },
+    {
+      "id": "e2e_10",
+      "prompt": "Download figma assests as svg for fileKey fig_brand_2026 nodes 12:34 and 12:35",
+      "expectAction": "run_tool",
+      "expectTool": "figma__download_figma_images",
+      "expectArgs": { "fileKey": "fig_brand_2026", "nodes": ["12:34", "12:35"], "format": "svg" }
+    },
+    {
+      "id": "e2e_11",
+      "prompt": "Serch hubspot contcts for John Doe",
+      "expectAction": "run_tool",
+      "expectTool": "hubspot__search_contacts",
+      "expectArgs": { "query": "John Doe" }
+    },
+    {
+      "id": "e2e_12",
+      "prompt": "Move HubSpot deal deal_991 to closedwon",
+      "expectAction": "run_tool",
+      "expectTool": "hubspot__update_deal_stage",
+      "expectArgs": { "dealId": "deal_991", "stage": "closedwon" }
+    },
+    {
+      "id": "e2e_13",
+      "prompt": "Mute noisy Datadog monitor 88421",
+      "expectAction": "run_tool",
+      "expectTool": "datadog__mute_monitor",
+      "expectArgs": { "monitorId": 88421 }
+    },
+    {
+      "id": "e2e_14",
+      "prompt": "Reconsile bank statment for QuickBooks account acct_chk_1 ending 2026-10-31",
+      "expectAction": "run_tool",
+      "expectTool": "quickbooks__reconcile_bank_feed",
+      "expectArgs": { "accountId": "acct_chk_1", "statementEndDate": "2026-10-31" }
+    },
+    {
+      "id": "e2e_15",
+      "prompt": "Open a Jira Bug ticket in project PAY titled Checkout timeout regression",
+      "expectAction": "run_tool",
+      "expectTool": "jira__create_issue",
+      "expectArgs": { "projectKey": "PAY", "summary": "Checkout timeout regression", "issueType": "Bug" }
+    },
+    {
+      "id": "e2e_16",
+      "prompt": "Walk me through the month-end bookkeeping close checklist",
+      "expectAction": "inspect_skill",
+      "expectSkill": "monthly-close-checklist"
+    },
+    {
+      "id": "e2e_17",
+      "prompt": "How do we triage CrashLoopBackOff pods in Kubernetes",
+      "expectAction": "inspect_skill",
+      "expectSkill": "k8s-crashloop-runbook"
+    },
+    {
+      "id": "e2e_18",
+      "prompt": "Create an issue about the login crash",
+      "expectAction": "clarify",
+      "expectCandidates": ["github__create_issue", "linear__create_issue", "jira__create_issue"]
+    },
+    {
+      "id": "e2e_19",
+      "prompt": "Book a round-trip Amtrak train from Boston to NYC",
+      "expectAction": "no_tool"
+    },
+    {
+      "id": "e2e_20",
+      "prompt": "Turn off the living room smart thermostat",
+      "expectAction": "no_tool"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#FDFCFB">
+<script src="/theme-boot.js"></script>
+<meta name="robots" content="noindex">
+<title>You’re invited · Loop</title>
+<meta property="og:title" content="You’re invited to Loop">
+<meta property="og:description" content="Connect once and every agent gets your shared tools, skills, Vault and memory.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://useloop.sh/og-preview.png?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://useloop.sh/og-preview.png?v=2">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="64x64">
+<style>
+:root{--bg:light-dark(#FDFCFB, #1A1614);--card:light-dark(#fff, #241F1E);--tint:light-dark(#F5EFED, #252120);--line:light-dark(#EBE2DF, #332E2C);--ink:light-dark(#3F2C2A, #F1E5E4);--muted:light-dark(#6F5A57, #C3AEAA);--faint:light-dark(#9A8783, #94827F);--brand:light-dark(#4D3533, #E6D8D6);--ok:light-dark(#3F7556, #87B89A);--okbg:light-dark(#E9F2EC, #202522);--no:light-dark(#A3412F, #F0907D);
+--serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;--sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI","Helvetica Neue",Arial,sans-serif;--mono:"SF Mono",ui-monospace,Menlo,Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--sans);-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:28px 16px 60px}
+a{color:inherit}
+.logo{height:30px;width:auto;display:block}
+.card{width:min(460px,100%);margin-top:24px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;box-shadow:0 18px 50px light-dark(rgba(63,44,42,.08), rgba(0, 0, 0, 0.28))}
+.h{font:500 28px/1.12 var(--serif);margin:0}
+.h.sm{font-size:24px}
+.sub{font-size:13.5px;color:var(--muted);margin:4px 0 0}
+.sub.tight{margin:0}
+.sub.sub-sm{margin:2px 0 0}
+.sub.sub-gap{margin-top:8px}
+.m.left{margin-left:0}
+.done-acts{display:flex;gap:8px;margin-top:18px}
+.done-acts .btn{flex:1;height:40px}
+.av{width:40px;height:40px;border-radius:99px;background:var(--brand);color:var(--bg);display:grid;place-items:center;font-weight:600;flex:none}
+.head{display:flex;gap:12px;align-items:center}
+.list{margin-top:18px;border-top:1px solid var(--line)}
+.row{display:flex;align-items:center;gap:12px;min-height:42px;border-bottom:1px dotted var(--line);font-size:14px}
+.row:last-child{border-bottom:0}
+.mk{width:24px;height:24px;border-radius:7px;display:grid;place-items:center;font-size:11px;flex:none;background:var(--tint);text-transform:uppercase}
+.m{margin-left:auto;font-size:12px;color:var(--faint)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:44px;padding:0 18px;border-radius:999px;font:500 14px var(--sans);border:0;cursor:pointer;text-decoration:none}
+.pri{background:var(--brand);color:var(--bg)}.out{border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.wide{width:100%;margin-top:18px}
+.fine{font-size:12px;color:var(--faint);text-align:center;margin-top:12px;line-height:1.5}
+.tabs{display:flex;gap:4px;margin-top:16px;flex-wrap:wrap}
+.tab{display:flex;align-items:center;gap:6px;height:32px;padding:0 12px;border-radius:999px;font:500 12.5px var(--sans);color:var(--muted);background:none;border:0;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--tint);color:var(--ink)}
+.code{background:light-dark(var(--ink), #110E0D);color:#F3EAE7;border-radius:12px;padding:12px 8px 12px 14px;font:12px/1.55 var(--mono);display:flex;gap:10px;margin-top:12px}
+.code pre{margin:0;flex:1;min-width:0;white-space:pre-wrap;word-break:break-all;font:inherit}
+.copy{height:30px;padding:0 12px;border-radius:999px;background:rgba(255,255,255,.14);color:#fff;font:500 12px var(--sans);border:0;cursor:pointer;flex:none}
+.note{font-size:12.5px;color:var(--muted);margin-top:10px;line-height:1.5}
+.note code{font:12px var(--mono);background:var(--tint);padding:1px 5px;border-radius:5px}
+.wait{display:flex;align-items:center;gap:10px;margin-top:16px;padding:12px 14px;border-radius:12px;background:var(--tint);font-size:13px}
+.pulse{width:9px;height:9px;border-radius:9px;background:light-dark(#C9A77A, #7F633D);box-shadow:0 0 0 4px light-dark(rgba(201,167,122,.25), rgba(127, 99, 61, 0.25));animation:p 1.6s ease-in-out infinite}
+@keyframes p{50%{opacity:.4}}
+.okdot{color:var(--ok)}
+.check{width:26px;height:26px;border-radius:99px;background:var(--okbg);color:var(--ok);display:grid;place-items:center;font-size:13px;flex:none}
+.err{color:var(--no)}
+.signin{margin-top:16px;display:flex;justify-content:center}
+.foot{margin-top:28px;font-size:12px;color:var(--faint)}
+.foot a{text-decoration:none;margin:0 8px}
+:root[data-dark] img[src$="logo.svg"] { filter: brightness(0) invert(.9) sepia(.12); }
+</style>
+</head>
+<body>
+<a href="/" aria-label="Loop home"><img class="logo" src="/logo.svg" alt="Loop" width="70" height="30"></a>
+<main class="card" id="card" aria-live="polite"><p class="sub">Loading invite…</p></main>
+<div class="foot"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a></div>
+<script type="module" src="/join.js"></script>
+</body>
+</html>

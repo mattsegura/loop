@@ -1,0 +1,39 @@
+{
+  "id": "tool-service-fails",
+  "about": "A connected service fails: that is not about Loop.",
+  "reviewed": true,
+  "prompt": "Open a ticket in Ticket Desk: title \"Printer is broken\", text \"It shows error 50 since Monday\". Use Loop.",
+  "connections": [
+    {
+      "name": "Ticket Desk",
+      "tools": [
+        {
+          "name": "create_ticket",
+          "description": "Open a support ticket with a title and a text.",
+          "inputSchema": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "title",
+              "text"
+            ]
+          },
+          "error": "Ticket Desk API error 503: service unavailable, try again later."
+        }
+      ]
+    }
+  ],
+  "expect": {
+    "feedback": "none",
+    "ran": [
+      "Ticket Desk/create_ticket"
+    ]
+  }
+}
