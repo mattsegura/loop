@@ -2,7 +2,13 @@
 
 Loop keeps your Connections, Skills, Memory, accounts, and secrets in one place and lets **any agent** use them: Claude Code, Claude Desktop, Codex, Cursor, Antigravity, Muse, Grok Bot, OpenBot bots, and more. Import what your agents already have, give each agent its own key and permissions, and see what each one did.
 
-Loop runs locally on loopback (`127.0.0.1`) or as a hosted multi-user deployment, aggregates upstream **tools**, **resources**, and **prompts** from Streamable HTTP, SSE, and local `stdio` MCP servers, encrypts credentials in a Vault, and manages everything through a web dashboard (Home, Agents, Connections, Skills, Memory, Vault, Settings).
+Loop runs locally on loopback (`127.0.0.1`) or as a hosted multi-user deployment, aggregates upstream **tools**, **resources**, and **prompts** from Streamable HTTP, SSE, and local `stdio` MCP servers, encrypts credentials in a Vault, and manages everything through a web dashboard (**Home**, **Library**, **Vault**, and **Settings**).
+
+![Loop Home dashboard](docs/screenshots/home.png)
+
+| Library (Memories, Skills, Saved, Tasks) | Vault (Encrypted Secrets & Approvals) | Settings (Agents, People & Security) |
+| --- | --- | --- |
+| ![Loop Library](docs/screenshots/library.png) | ![Loop Vault](docs/screenshots/vault.png) | ![Loop Settings](docs/screenshots/settings.png) |
 
 ## Quick Start (Free Local Loop)
 
